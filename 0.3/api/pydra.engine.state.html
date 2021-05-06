@@ -1,0 +1,564 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>pydra.engine.state module &mdash; Pydra: A simple dataflow engine with scalable semantics 0.3 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pydra.engine.submitter module" href="pydra.engine.submitter.html" />
+    <link rel="prev" title="pydra.engine.specs module" href="pydra.engine.specs.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Pydra: A simple dataflow engine with scalable semantics
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">Library API (application programmer interface)</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="pydra.engine.html">pydra.engine package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="pydra.engine.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pydra.mark.html">pydra.mark package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pydra.utils.html">pydra.utils package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Pydra: A simple dataflow engine with scalable semantics</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../api.html">Library API (application programmer interface)</a> &raquo;</li>
+        
+          <li><a href="pydra.engine.html">pydra.engine package</a> &raquo;</li>
+        
+      <li>pydra.engine.state module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/pydra.engine.state.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+
+
+    
+    
+
+
+
+    <p class="scv-banner scv-sphinx_rtd_theme"><a href="../../master/api/pydra.engine.state.html"><b>Warning:</b> This document is for an old version of Pydra: A simple dataflow engine with scalable semantics. The main version is master.</a></p>
+<div class="section" id="module-pydra.engine.state">
+<span id="pydra-engine-state-module"></span><h1>pydra.engine.state module<a class="headerlink" href="#module-pydra.engine.state" title="Permalink to this headline">¶</a></h1>
+<p>Keeping track of mapping and reduce operations over tasks.</p>
+<dl class="py class">
+<dt id="pydra.engine.state.State">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pydra.engine.state.</span></code><code class="sig-name descname"><span class="pre">State</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">splitter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">combiner</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.state.State" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A class that specifies a State of all tasks.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>It’s only used when a task have a splitter.</p></li>
+<li><p>It contains all information about splitter, combiner, final splitter,
+and input values for specific task states
+(specified by the splitter and the input).</p></li>
+<li><p>It also contains information about the final groups and the final splitter
+if combiner is available..</p></li>
+</ul>
+</div></blockquote>
+<dl class="py attribute">
+<dt id="pydra.engine.state.State.name">
+<code class="sig-name descname"><span class="pre">name</span></code><a class="headerlink" href="#pydra.engine.state.State.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>name of the state that is the same as name of the task</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="pydra.engine.state.State.splitter">
+<code class="sig-name descname"><span class="pre">splitter</span></code><a class="headerlink" href="#pydra.engine.state.State.splitter" title="Permalink to this definition">¶</a></dt>
+<dd><p>can be a str (name of a single input),
+tuple for scalar splitter, or list for outer splitter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="pydra.engine.state.State.splitter_rpn_compact">
+<code class="sig-name descname"><span class="pre">splitter_rpn_compact</span></code><a class="headerlink" href="#pydra.engine.state.State.splitter_rpn_compact" title="Permalink to this definition">¶</a></dt>
+<dd><p>splitter in <abbr title="reverse Polish notation">RPN</abbr>, using a compact
+notation for splitter from previous states, e.g. _NA</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="pydra.engine.state.State.splitter_rpn">
+<code class="sig-name descname"><span class="pre">splitter_rpn</span></code><a class="headerlink" href="#pydra.engine.state.State.splitter_rpn" title="Permalink to this definition">¶</a></dt>
+<dd><p>splitter represented in RPN,
+unwrapping splitters from previous states</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="pydra.engine.state.State.combiner">
+<code class="sig-name descname"><span class="pre">combiner</span></code><a class="headerlink" href="#pydra.engine.state.State.combiner" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of fields that should be combined
+(order is not important)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="pydra.engine.state.State.splitter_final">
+<code class="sig-name descname"><span class="pre">splitter_final</span></code><a class="headerlink" href="#pydra.engine.state.State.splitter_final" title="Permalink to this definition">¶</a></dt>
+<dd><p>final splitter that includes the combining process</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="pydra.engine.state.State.other_states">
+<code class="sig-name descname"><span class="pre">other_states</span></code><a class="headerlink" href="#pydra.engine.state.State.other_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>used to create connections with previous states:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="n">name</span> <span class="n">of</span> <span class="n">a</span> <span class="n">previous</span> <span class="n">state</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">previous</span> <span class="n">state</span><span class="p">,</span> <span class="nb">input</span> <span class="kn">from</span> <span class="nn">current</span> <span class="n">state</span> <span class="n">needed</span> <span class="n">the</span> <span class="n">connection</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="pydra.engine.state.State.inner_inputs">
+<code class="sig-name descname"><span class="pre">inner_inputs</span></code><a class="headerlink" href="#pydra.engine.state.State.inner_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>used to create connections with previous states
+<code class="docutils literal notranslate"><span class="pre">{&quot;{self.name}.input</span> <span class="pre">name</span> <span class="pre">for</span> <span class="pre">current</span> <span class="pre">inp&quot;:</span> <span class="pre">previous</span> <span class="pre">state}</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="pydra.engine.state.State.states_ind">
+<code class="sig-name descname"><span class="pre">states_ind</span></code><a class="headerlink" href="#pydra.engine.state.State.states_ind" title="Permalink to this definition">¶</a></dt>
+<dd><p>dictionary for every state that contains
+indices for all state inputs (i.e. inputs that are part of the splitter)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="pydra.engine.state.State.states_val">
+<code class="sig-name descname"><span class="pre">states_val</span></code><a class="headerlink" href="#pydra.engine.state.State.states_val" title="Permalink to this definition">¶</a></dt>
+<dd><p>dictionary for every state that contains
+values for all state inputs (i.e. inputs that are part of the splitter)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="pydra.engine.state.State.inputs_ind">
+<code class="sig-name descname"><span class="pre">inputs_ind</span></code><a class="headerlink" href="#pydra.engine.state.State.inputs_ind" title="Permalink to this definition">¶</a></dt>
+<dd><p>dictionary for every state that contains
+indices for all task inputs (i.e. inputs that are relevant
+for current task, can be outputs from previous nodes)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="pydra.engine.state.State.group_for_inputs">
+<code class="sig-name descname"><span class="pre">group_for_inputs</span></code><a class="headerlink" href="#pydra.engine.state.State.group_for_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>specifying groups (axes) for each input field
+(depends on the splitter)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="pydra.engine.state.State.group_for_inputs_final">
+<code class="sig-name descname"><span class="pre">group_for_inputs_final</span></code><a class="headerlink" href="#pydra.engine.state.State.group_for_inputs_final" title="Permalink to this definition">¶</a></dt>
+<dd><p>specifying final groups (axes)
+for each input field (depends on the splitter and combiner)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="pydra.engine.state.State.groups_stack_final">
+<code class="sig-name descname"><span class="pre">groups_stack_final</span></code><a class="headerlink" href="#pydra.engine.state.State.groups_stack_final" title="Permalink to this definition">¶</a></dt>
+<dd><p>specify stack of groups/axes (used to
+determine which field could be combined)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="pydra.engine.state.State.final_combined_ind_mapping">
+<code class="sig-name descname"><span class="pre">final_combined_ind_mapping</span></code><a class="headerlink" href="#pydra.engine.state.State.final_combined_ind_mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>mapping between final indices
+after combining and partial indices of the results</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="id0">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">combiner</span></code><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the combiner associated to the state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.state.State.connect_groups">
+<code class="sig-name descname"><span class="pre">connect_groups</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.state.State.connect_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>“Connect previous states and evaluate the final groups.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.state.State.connect_splitters">
+<code class="sig-name descname"><span class="pre">connect_splitters</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.state.State.connect_splitters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect splitters from previous nodes.</p>
+<p>Evaluates Left (the part from previous states) and Right (current state) parts.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.state.State.merge_previous_states">
+<code class="sig-name descname"><span class="pre">merge_previous_states</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.state.State.merge_previous_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge groups from  all previous nodes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.state.State.prepare_inputs">
+<code class="sig-name descname"><span class="pre">prepare_inputs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.state.State.prepare_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get inputs ready.</p>
+<ol class="arabic simple">
+<li><p>Remove elements that come from connected states.</p></li>
+<li><p>Merge elements that come from outputs of previous nodes.</p></li>
+<li><p>Remove elements connected to the inner splitter.</p></li>
+</ol>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.state.State.prepare_states">
+<code class="sig-name descname"><span class="pre">prepare_states</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.state.State.prepare_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare a full list of state indices and state values.</p>
+<dl class="simple">
+<dt>State Indices</dt><dd><p>number of elements depends on the splitter</p>
+</dd>
+<dt>State Values</dt><dd><p>specific elements from inputs that can be used running interfaces</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.state.State.prepare_states_combined_ind">
+<code class="sig-name descname"><span class="pre">prepare_states_combined_ind</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elements_to_remove_comb</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.state.State.prepare_states_combined_ind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare the final list of dictionaries with indices after combiner.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.state.State.prepare_states_ind">
+<code class="sig-name descname"><span class="pre">prepare_states_ind</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.state.State.prepare_states_ind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate a list of dictionaries with state indices.</p>
+<p>Uses hlpst.splits.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.state.State.prepare_states_val">
+<code class="sig-name descname"><span class="pre">prepare_states_val</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.state.State.prepare_states_val" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate states values having states indices.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.state.State.push_new_states">
+<code class="sig-name descname"><span class="pre">push_new_states</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.state.State.push_new_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add additional groups from the current state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.state.State.set_input_groups">
+<code class="sig-name descname"><span class="pre">set_input_groups</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.state.State.set_input_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate groups, especially the final groups that address the combiner.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.state.State.set_splitter_final">
+<code class="sig-name descname"><span class="pre">set_splitter_final</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.state.State.set_splitter_final" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate a final splitter after combining.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="id1">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">splitter</span></code><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the splitter of the state.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="pydra.engine.submitter.html" class="btn btn-neutral float-right" title="pydra.engine.submitter module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pydra.engine.specs.html" class="btn btn-neutral float-left" title="pydra.engine.specs module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2019 - 2020, The Nipype Developers team.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Other Versions</span>
+        v: 0.3
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Tags</dt>
+            <dd><a href="../../0.10/api/pydra.engine.state.html">0.10</a></dd>
+            <dd><a href="../../0.11/api/pydra.engine.state.html">0.11</a></dd>
+            <dd><a href="../../0.12/api/pydra.engine.state.html">0.12</a></dd>
+            <dd><a href="../../0.12.1/api/pydra.engine.state.html">0.12.1</a></dd>
+            <dd><a href="../../0.13/api/pydra.engine.state.html">0.13</a></dd>
+            <dd><a href="../../0.14/api/pydra.engine.state.html">0.14</a></dd>
+            <dd><a href="../../0.14.1/api/pydra.engine.state.html">0.14.1</a></dd>
+            <dd><a href="../../0.15/api/pydra.engine.state.html">0.15</a></dd>
+            <dd><a href="pydra.engine.state.html">0.3</a></dd>
+            <dd><a href="../../0.3.1/api/pydra.engine.state.html">0.3.1</a></dd>
+            <dd><a href="../../0.4/api/pydra.engine.state.html">0.4</a></dd>
+            <dd><a href="../../0.5/api/pydra.engine.state.html">0.5</a></dd>
+            <dd><a href="../../0.6/api/pydra.engine.state.html">0.6</a></dd>
+            <dd><a href="../../0.6.1/api/pydra.engine.state.html">0.6.1</a></dd>
+            <dd><a href="../../0.6.2/api/pydra.engine.state.html">0.6.2</a></dd>
+            <dd><a href="../../0.7/api/pydra.engine.state.html">0.7</a></dd>
+            <dd><a href="../../0.8/api/pydra.engine.state.html">0.8</a></dd>
+            <dd><a href="../../0.9/api/pydra.engine.state.html">0.9</a></dd>
+            <dd><a href="../../0.9.1/api/pydra.engine.state.html">0.9.1</a></dd>
+            <dd><a href="../../0.9.2/api/pydra.engine.state.html">0.9.2</a></dd>
+        </dl>
+        <dl>
+            <dt>Branches</dt>
+            <dd><a href="../../maint_0.6.x/api/pydra.engine.state.html">maint/0.6.x</a></dd>
+            <dd><a href="../../master/api/pydra.engine.state.html">master</a></dd>
+        </dl>
+    </div>
+</div>
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

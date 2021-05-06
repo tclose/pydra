@@ -1,0 +1,455 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>pydra.engine.graph module &mdash; Pydra: A simple dataflow engine with scalable semantics 0.10 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pydra.engine.helpers module" href="pydra.engine.helpers.html" />
+    <link rel="prev" title="pydra.engine.core module" href="pydra.engine.core.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Pydra: A simple dataflow engine with scalable semantics
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.10
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Release Notes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">Library API (application programmer interface)</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="pydra.engine.html">pydra.engine package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="pydra.engine.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pydra.mark.html">pydra.mark package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pydra.tasks.html">pydra.tasks package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pydra.utils.html">pydra.utils package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Pydra: A simple dataflow engine with scalable semantics</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../api.html">Library API (application programmer interface)</a> &raquo;</li>
+        
+          <li><a href="pydra.engine.html">pydra.engine package</a> &raquo;</li>
+        
+      <li>pydra.engine.graph module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/pydra.engine.graph.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+
+
+    
+    
+
+
+
+    <p class="scv-banner scv-sphinx_rtd_theme"><a href="../../master/api/pydra.engine.graph.html"><b>Warning:</b> This document is for an old version of Pydra: A simple dataflow engine with scalable semantics. The main version is master.</a></p>
+<div class="section" id="module-pydra.engine.graph">
+<span id="pydra-engine-graph-module"></span><h1>pydra.engine.graph module<a class="headerlink" href="#module-pydra.engine.graph" title="Permalink to this headline">¶</a></h1>
+<p>Data structure to support <a class="reference internal" href="pydra.engine.core.html#pydra.engine.core.Workflow" title="pydra.engine.core.Workflow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code></a> tasks.</p>
+<dl class="py class">
+<dt id="pydra.engine.graph.DiGraph">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pydra.engine.graph.</span></code><code class="sig-name descname"><span class="pre">DiGraph</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edges</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.graph.DiGraph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A simple Directed Graph object.</p>
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.add_edges">
+<code class="sig-name descname"><span class="pre">add_edges</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_edges</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.graph.DiGraph.add_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new edges and sort the new graph.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.add_edges_description">
+<code class="sig-name descname"><span class="pre">add_edges_description</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_edge_details</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.graph.DiGraph.add_edges_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>adding detailed description of the connections, filling _nodes_details</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.add_nodes">
+<code class="sig-name descname"><span class="pre">add_nodes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_nodes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.graph.DiGraph.add_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert new nodes and sort the new graph.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.calculate_max_paths">
+<code class="sig-name descname"><span class="pre">calculate_max_paths</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.graph.DiGraph.calculate_max_paths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate maximum paths.</p>
+<p>Maximum paths are calculated between any node without “history” (no predecessors)
+and all of the connections.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.copy">
+<code class="sig-name descname"><span class="pre">copy</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.graph.DiGraph.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Duplicate this graph.</p>
+<p>Create a copy that contains new lists and dictionaries,
+but runnable objects are the same.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.create_dotfile_detailed">
+<code class="sig-name descname"><span class="pre">create_dotfile_detailed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outdir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'graph_det'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.graph.DiGraph.create_dotfile_detailed" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a detailed dotfile (detailed connections - input/output fields,
+but no nested structure)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.create_dotfile_nested">
+<code class="sig-name descname"><span class="pre">create_dotfile_nested</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outdir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'graph'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.graph.DiGraph.create_dotfile_nested" title="Permalink to this definition">¶</a></dt>
+<dd><p>dotfile that includes the nested structures for workflows</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.create_dotfile_simple">
+<code class="sig-name descname"><span class="pre">create_dotfile_simple</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outdir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'graph'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.graph.DiGraph.create_dotfile_simple" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a simple dotfile (no nested structure)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.edges">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">edges</span></code><a class="headerlink" href="#pydra.engine.graph.DiGraph.edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of the links between nodes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.edges_names">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">edges_names</span></code><a class="headerlink" href="#pydra.engine.graph.DiGraph.edges_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get edges as pairs of the nodes they connect.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.export_graph">
+<code class="sig-name descname"><span class="pre">export_graph</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'png'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.graph.DiGraph.export_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>exporting dotfile to other format, equires the dot command</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.nodes">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">nodes</span></code><a class="headerlink" href="#pydra.engine.graph.DiGraph.nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of the nodes currently contained in the graph.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.nodes_details">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">nodes_details</span></code><a class="headerlink" href="#pydra.engine.graph.DiGraph.nodes_details" title="Permalink to this definition">¶</a></dt>
+<dd><p>dictionary with details of the nodes
+for each task, there are inputs/outputs and connections
+(with input/output fields names)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.nodes_names_map">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">nodes_names_map</span></code><a class="headerlink" href="#pydra.engine.graph.DiGraph.nodes_names_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a map of node names to nodes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.remove_nodes">
+<code class="sig-name descname"><span class="pre">remove_nodes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_ready</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.graph.DiGraph.remove_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark nodes for removal from the graph, re-sorting if needed.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This method does not remove connections, see
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">remove_node_connections()</span></code>.
+Nodes are added to the <code class="docutils literal notranslate"><span class="pre">_node_wip</span></code> list, marking
+them for removal when all referring connections
+are removed.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>) – List of nodes to be marked for removal.</p></li>
+<li><p><strong>check_ready</strong> (:obj: <cite>bool</cite>) – checking if the node is ready to be removed</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.remove_nodes_connections">
+<code class="sig-name descname"><span class="pre">remove_nodes_connections</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.graph.DiGraph.remove_nodes_connections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove connections between nodes.</p>
+<p>Also prunes the nodes from <code class="docutils literal notranslate"><span class="pre">_node_wip</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nodes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>) – List of nodes which connections are to be removed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.remove_previous_connections">
+<code class="sig-name descname"><span class="pre">remove_previous_connections</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.graph.DiGraph.remove_previous_connections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove connections that the node has with predecessors.</p>
+<p>Also prunes the nodes from <code class="docutils literal notranslate"><span class="pre">_node_wip</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nodes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>) – List of nodes which connections are to be removed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.remove_successors_nodes">
+<code class="sig-name descname"><span class="pre">remove_successors_nodes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.graph.DiGraph.remove_successors_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removing all the nodes that follow the node</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.sorted_nodes">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">sorted_nodes</span></code><a class="headerlink" href="#pydra.engine.graph.DiGraph.sorted_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return sorted nodes (runs sorting if needed).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.sorted_nodes_names">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">sorted_nodes_names</span></code><a class="headerlink" href="#pydra.engine.graph.DiGraph.sorted_nodes_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of sorted nodes names.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pydra.engine.graph.DiGraph.sorting">
+<code class="sig-name descname"><span class="pre">sorting</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">presorted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pydra.engine.graph.DiGraph.sorting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort this graph.</p>
+<p>Sorting starts either from self.nodes or the
+previously sorted list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>presorted</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>) – A list of previously sorted nodes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="pydra.engine.helpers.html" class="btn btn-neutral float-right" title="pydra.engine.helpers module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pydra.engine.core.html" class="btn btn-neutral float-left" title="pydra.engine.core module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2019 - 2020, The Nipype Developers team.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Other Versions</span>
+        v: 0.10
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Tags</dt>
+            <dd><a href="pydra.engine.graph.html">0.10</a></dd>
+            <dd><a href="../../0.11/api/pydra.engine.graph.html">0.11</a></dd>
+            <dd><a href="../../0.12/api/pydra.engine.graph.html">0.12</a></dd>
+            <dd><a href="../../0.12.1/api/pydra.engine.graph.html">0.12.1</a></dd>
+            <dd><a href="../../0.13/api/pydra.engine.graph.html">0.13</a></dd>
+            <dd><a href="../../0.14/api/pydra.engine.graph.html">0.14</a></dd>
+            <dd><a href="../../0.14.1/api/pydra.engine.graph.html">0.14.1</a></dd>
+            <dd><a href="../../0.15/api/pydra.engine.graph.html">0.15</a></dd>
+            <dd><a href="../../0.3/api/pydra.engine.graph.html">0.3</a></dd>
+            <dd><a href="../../0.3.1/api/pydra.engine.graph.html">0.3.1</a></dd>
+            <dd><a href="../../0.4/api/pydra.engine.graph.html">0.4</a></dd>
+            <dd><a href="../../0.5/api/pydra.engine.graph.html">0.5</a></dd>
+            <dd><a href="../../0.6/api/pydra.engine.graph.html">0.6</a></dd>
+            <dd><a href="../../0.6.1/api/pydra.engine.graph.html">0.6.1</a></dd>
+            <dd><a href="../../0.6.2/api/pydra.engine.graph.html">0.6.2</a></dd>
+            <dd><a href="../../0.7/api/pydra.engine.graph.html">0.7</a></dd>
+            <dd><a href="../../0.8/api/pydra.engine.graph.html">0.8</a></dd>
+            <dd><a href="../../0.9/api/pydra.engine.graph.html">0.9</a></dd>
+            <dd><a href="../../0.9.1/api/pydra.engine.graph.html">0.9.1</a></dd>
+            <dd><a href="../../0.9.2/api/pydra.engine.graph.html">0.9.2</a></dd>
+        </dl>
+        <dl>
+            <dt>Branches</dt>
+            <dd><a href="../../maint_0.6.x/api/pydra.engine.graph.html">maint/0.6.x</a></dd>
+            <dd><a href="../../master/api/pydra.engine.graph.html">master</a></dd>
+        </dl>
+    </div>
+</div>
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
