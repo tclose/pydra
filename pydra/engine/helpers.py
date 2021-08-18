@@ -691,7 +691,7 @@ def hash_value(value, tp=None, metadata=None, precalculated=None):
         ):
             return hash_file(value, precalculated=precalculated)
         elif (
-            (tp is File or "pydra.engine.specs.Directory" in str(tp))
+            (tp is Directory or "pydra.engine.specs.Directory" in str(tp))
             and is_existing_file(value)
             and "container_path" not in metadata
         ):
