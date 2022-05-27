@@ -42,6 +42,7 @@ import attr
 import cloudpickle as cp
 import inspect
 import typing as ty
+import shlex
 from pathlib import Path
 import warnings
 
@@ -483,7 +484,7 @@ class ShellCommandTask(TaskBase):
             cmd_el_str = field.metadata["formatter"](**call_args_val)
             cmd_el_str = cmd_el_str.strip().replace("  ", " ")
             if cmd_el_str != "":
-                cmd_add += cmd_el_str.split(" ")
+                cmd_add += split_cmd_str(cmd_el_str)
         elif field.type is bool:
             # if value is simply True the original argstr is used,
             # if False, nothing is added to the command
@@ -520,9 +521,9 @@ class ShellCommandTask(TaskBase):
                     else:
                         cmd_el_str = ""
             # removing double spacing
-            cmd_el_str = cmd_el_str.strip().replace("  ", " ")
+            cmd_el_str = cmd_el_str.strip()
             if cmd_el_str:
-                cmd_add += cmd_el_str.split(" ")
+                cmd_add += split_cmd_str(cmd_el_str)
         return pos, cmd_add
 
     @property
@@ -564,10 +565,12 @@ class ShellCommandTask(TaskBase):
             values = execute(args, strip=self.strip)
             self.output_ = dict(zip(keys, values))
             if self.output_["return_code"]:
+                msg = f"Error running '{self.name}' task with {args}:"
                 if self.output_["stderr"]:
-                    raise RuntimeError(self.output_["stderr"])
-                else:
-                    raise RuntimeError(self.output_["stdout"])
+                    msg += "\n\nstderr:\n" + self.output_["stderr"]
+                if self.output_["stdout"]:
+                    msg += "\n\nstderr:\n" + self.output_["stdout"]
+                raise RuntimeError(msg)
 
 
 class ContainerTask(ShellCommandTask):
@@ -896,3 +899,9 @@ class SingularityTask(ContainerTask):
         cargs.extend(["--pwd", str(self.output_cpath)])
         cargs.append(image)
         return cargs
+
+
+def split_cmd_str(cmd_str):
+    """Safely splits a command string respecting quotations such that it can
+    be concatenated again"""
+    return ["'" + p + "'" if " " in p else p for p in shlex.split(cmd_str)]
