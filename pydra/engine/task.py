@@ -484,7 +484,7 @@ class ShellCommandTask(TaskBase):
             cmd_el_str = field.metadata["formatter"](**call_args_val)
             cmd_el_str = cmd_el_str.strip().replace("  ", " ")
             if cmd_el_str != "":
-                cmd_add += split_cmd_str(cmd_el_str)
+                cmd_add += shlex.split(cmd_el_str)
         elif field.type is bool:
             # if value is simply True the original argstr is used,
             # if False, nothing is added to the command
@@ -523,7 +523,7 @@ class ShellCommandTask(TaskBase):
             # removing double spacing
             cmd_el_str = cmd_el_str.strip()
             if cmd_el_str:
-                cmd_add += split_cmd_str(cmd_el_str)
+                cmd_add += shlex.split(cmd_el_str)
         return pos, cmd_add
 
     @property
@@ -539,16 +539,16 @@ class ShellCommandTask(TaskBase):
             if self.state:
                 cmdline = []
                 for con, com in zip(self.container_args, self.command_args):
-                    cmdline.append(" ".join(con + com))
+                    cmdline.append(join_cmd_args(con + com))
             else:
-                cmdline = " ".join(self.container_args + self.command_args)
+                cmdline = join_cmd_args(self.container_args + self.command_args)
         else:
             if self.state:
                 cmdline = []
                 for el in self.command_args:
-                    cmdline.append(" ".join(el))
+                    cmdline.append(join_cmd_args(el))
             else:
-                cmdline = " ".join(self.command_args)
+                cmdline = join_cmd_args(self.command_args)
 
         return cmdline
 
@@ -901,7 +901,6 @@ class SingularityTask(ContainerTask):
         return cargs
 
 
-def split_cmd_str(cmd_str):
-    """Safely splits a command string respecting quotations such that it can
-    be concatenated again"""
-    return ["'" + p + "'" if " " in p else p for p in shlex.split(cmd_str)]
+def join_cmd_args(args):
+    """Safely joins command args quoting any containing spaces"""
+    return " ".join("'" + p + "'" if " " in p else p for p in shlex.split(args))
