@@ -5,8 +5,12 @@ import typing as ty
 import inspect
 import re
 from glob import glob
+import logging
 
 from .helpers_file import template_update_single
+
+
+logger = logging.getLogger("pydra")
 
 
 def attr_fields(spec, exclude_names=()):
@@ -569,6 +573,17 @@ class ShellOutSpec:
                             raise Exception(
                                 f"mandatory output for variable {fld.name} does not exist"
                             )
+                    logger.debug(
+                        "Path of %s field of %s, '%s', does not exist, omitting. ",
+                        fld.name,
+                        self,
+                        str(val),
+                    )
+                    if val.parent.exists():
+                        logger.debug(
+                            "Neighbouring existing paths are: %s",
+                            list(val.parent.iterdir()),
+                        )
                     return attr.NOTHING
                 return val
         elif "callable" in fld.metadata:
