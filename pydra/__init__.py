@@ -41,8 +41,8 @@ if not hasattr(__main__, "__file__"):
 # attr run_validators is set to False, but could be changed using use_validator
 import attr
 
-attr.set_run_validators(False)
+attr.set_run_validators(True)
 
 
-def set_input_validator(flag=False):
+def set_input_validator(flag=True):
     attr.set_run_validators(flag)
