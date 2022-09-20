@@ -2399,7 +2399,7 @@ def test_wf_shell_cmd_state_1(plugin):
             (
                 "file",
                 attr.ib(
-                    type=str,
+                    type=Path,
                     metadata={
                         "output_file_template": "{args}",
                         "help_string": "output file",
@@ -2416,7 +2416,7 @@ def test_wf_shell_cmd_state_1(plugin):
             (
                 "orig_file",
                 attr.ib(
-                    type=str,
+                    type=Path,
                     metadata={
                         "position": 1,
                         "help_string": "output file",
@@ -2427,7 +2427,7 @@ def test_wf_shell_cmd_state_1(plugin):
             (
                 "out_file",
                 attr.ib(
-                    type=str,
+                    type=Path,
                     metadata={
                         "position": 2,
                         "argstr": "",
