@@ -626,7 +626,7 @@ def template_update_single(
     if spec_type == "input":
         allowed_types = [str, Path, File, Directory]
         allowed_union_args = allowed_types + [bool]
-        if field.type not in allowed_types or (
+        if field.type not in allowed_types and (
             ty.get_origin(field.type) is ty.Union
             and not all(t in allowed_union_args for t in ty.get_args(field.type))
         ):
