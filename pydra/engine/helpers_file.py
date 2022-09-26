@@ -15,6 +15,7 @@ from copy import copy
 related_filetype_sets = [(".hdr", ".img", ".mat"), (".nii", ".mat"), (".BRIK", ".HEAD")]
 """List of neuroimaging file types that are to be interpreted together."""
 
+
 logger = logging.getLogger("pydra")
 
 
@@ -596,11 +597,6 @@ def template_update(inputs, output_dir, state_ind=None, map_copyfiles=None):
     ]
     dict_mod = {}
     for fld in fields_templ:
-        if fld.type not in [str, ty.Union[str, bool]]:
-            raise Exception(
-                f"fields with output_file_template"
-                " has to be a string or Union[str, bool]"
-            )
         dict_mod[fld.name] = template_update_single(
             field=fld,
             inputs=inputs,
@@ -628,10 +624,15 @@ def template_update_single(
         inputs_dict_st = attr.asdict(inputs, recurse=False)
 
     if spec_type == "input":
-        if field.type not in [str, ty.Union[str, bool]]:
+        allowed_types = [str, Path, File, Directory]
+        allowed_union_args = allowed_types + [bool]
+        if field.type not in allowed_types or (
+            ty.get_origin(field.type) is ty.Union
+            and not all(t in allowed_union_args for t in ty.get_args(field.type))
+        ):
             raise Exception(
-                f"fields with output_file_template"
-                "has to be a string or Union[str, bool]"
+                f"fields with output_file_template has to be one of {allowed_types} or "
+                f"union of said types and bool"
             )
         inp_val_set = inputs_dict_st[field.name]
         if inp_val_set is not attr.NOTHING and not isinstance(inp_val_set, (str, bool)):
