@@ -74,10 +74,20 @@ class Workflow:
         self.connections.append(connection)
 
 
-def shell_arg(default=attrs.NOTHING, factory=None, argstr="", position=None, help=None):
+def shell_arg(
+    default=attrs.NOTHING,
+    factory=None,
+    argstr="",
+    position=None,
+    help=None,
+    converters=None,
+    validators=None,
+):
     return attrs.field(
         default=default,
         factory=factory,
+        converters=converters,
+        validators=validators,
         metadata={"argstr": argstr, "position": position, "help_string": help},
     )
 
@@ -89,9 +99,13 @@ def shell_out(
     help=None,
     file_template=None,
     callable=None,
+    converters=None,
+    validators=None,
 ):
     return attrs.field(
         default=default,
+        converters=converters,
+        validators=validators,
         metadata={
             "argstr": argstr,
             "position": position,
@@ -103,8 +117,14 @@ def shell_out(
 
 
 @dataclass_transform(kw_only_default=True, field_specifiers=(shell_arg,))
-def shell_task(klass):
-    return attrs.define(kw_only=True, auto_attrib=False, slots=False)(klass)
+def shell_task(executable: str):
+    def decorator(klass):
+        klass.__pydra_executable__ = executable
+        klass.__pydra_task_class__ = ShellCommandTask
+        klass.__annotations__["__pydra_executable__"] = str
+        return attrs.define(kw_only=True, auto_attrib=False, slots=False)(klass)
+
+    return decorator
 
 
 @dataclass_transform(kw_only_default=True, field_specifiers=(shell_out,))
@@ -112,41 +132,77 @@ def shell_outputs(klass):
     return attrs.define(kw_only=True, auto_attrib=False, slots=False)(klass)
 
 
-def func_arg(default=attrs.NOTHING, factory=None, help=None):
+def func_arg(
+    default=attrs.NOTHING,
+    factory=None,
+    help=None,
+    converters=None,
+    validators=None,
+):
     return attrs.field(
         default=default,
+        converters=converters,
+        validators=validators,
         metadata={"factory": factory, "help_string": help},
     )
 
 
 @dataclass_transform(kw_only_default=True, field_specifiers=(func_arg,))
-def func_task(klass):
+def func_task(function: ty.Callable):
+    def decorator(klass):
+        klass.__pydra_function__ = staticmethod(function)
+        klass.__pydra_task_class__ = FunctionTask
+        klass.__annotations__["__pydra_function__"] = ty.Callable
+        return attrs.define(kw_only=True, auto_attrib=False, slots=False)(klass)
+
+    return decorator
+
+
+def func_out(
+    default=attrs.NOTHING,
+    help=None,
+    converters=None,
+    validators=None,
+):
+    return attrs.field(
+        default=default,
+        converters=converters,
+        validators=validators,
+        metadata={
+            "help_string": help,
+            "callable": callable,
+        },
+    )
+
+
+@dataclass_transform(kw_only_default=True, field_specifiers=(func_out,))
+def func_outputs(klass):
     return attrs.define(kw_only=True, auto_attrib=False, slots=False)(klass)
 
 
-@shell_task
+@shell_task("mycmd")
 class MyShellSpec(SpecBase["MyShellSpec.Out"]):
-    executable: str = "mycmd"
-
     in_file: File = shell_arg(argstr="", position=0)
-    an_option: str = shell_arg(argstr="--opt", position=-1)
+    an_option: str = shell_arg(
+        argstr="--opt", position=-1, help="an option to flag something"
+    )
 
     @shell_outputs
     class Out:
-        out_file: File = shell_out(file_template="")
-        out_str: str = shell_out()
+        out_file: File = shell_out(file_template="{in_file.stem}_out{in_file.suffix}")
+        out_str: str
 
 
-@func_task
+def func(in_int: int, in_str: str) -> ty.Tuple[int, str]:
+    return in_int, in_str
+
+
+@func_task(func)
 class MyFuncSpec(SpecBase["MyFuncSpec.Out"]):
-    @staticmethod
-    def func(in_int: int, in_str: str) -> ty.Tuple[int, str]:
-        return in_int, in_str
-
     in_int: int = func_arg(help="a dummy input int")
     in_str: str = func_arg(help="a dummy input int")
 
-    @attrs.define
+    @func_outputs
     class Out:
         out_int: int
         out_str: str
